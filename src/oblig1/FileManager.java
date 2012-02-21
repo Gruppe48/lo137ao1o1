@@ -5,8 +5,10 @@ package oblig1;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -17,6 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @studnr 180212
  * @date Feb 20, 2012
  */
+
 public class FileManager {
 
   public void askFile() {
@@ -27,6 +30,19 @@ public class FileManager {
       // happy bunny
       if (file.isDirectory()) {
         System.out.printf("%s er en mappe!\n", filename);
+        int numFiles = file.list().length;
+        System.out.println("numFiles = " + numFiles);
+        
+        FilenameFilter filefilter = new FilenameFilter() {
+          @Override
+          public boolean accept(File dir, String name) {
+            return name.endsWith("java");
+          }
+        };
+
+        String[] filenames = file.list(filefilter);
+        int numJavaFiles = filenames.length;
+        System.out.println("number of Java files = " + numJavaFiles);
       }
       else if (file.isFile()) {
         System.out.printf("%s er en fil!\n", filename);
