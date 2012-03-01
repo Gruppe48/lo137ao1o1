@@ -1,5 +1,17 @@
-/*
+/**
+ *
+ * @author Kristoffer Berdal <web@flexd.net>
+ * @studnr 180212
+
+ * @author Even Augdal <even.augdal@gmail.com>
+ * @studnr 181091
+ * 
+ * @author Tommy Nyrud <s180487@stud.hioa.no>
+ * @studnr 180487
+ * 
+ * @date Feb 20, 2012
  */
+
 package oblig1;
 
 import java.io.*;
@@ -9,13 +21,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
-/**
- *
- * @author Kristoffer Berdal <web@flexd.net>
- * @studnr 180212
- * @date Feb 20, 2012
- */
 
 public class FileManager implements FileFilter {
 
