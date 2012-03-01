@@ -92,6 +92,22 @@ public class FileManager implements FileFilter {
     }
   }
 
+  public int countLines() {
+    FileReader input = new FileReader(filename);
+    BufferedReader bufRead = new BufferedReader(input);  
+    String line;
+    int count;
+
+    line = bufRead.readLine();
+    count++;
+    while (line != null) {
+      line = bufRead.readLine();
+      count++;
+    }
+    bufRead.close();
+    return count;
+  }
+  
   @Override
   public boolean accept(File file) {
     throw new UnsupportedOperationException("Not supported yet.");
