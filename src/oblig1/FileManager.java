@@ -3,6 +3,8 @@
 package oblig1;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -30,12 +32,16 @@ public class FileManager implements FileFilter {
         
         int numJavaFiles = 0;
         File[] files = file.listFiles();
+        int numJavaLines = 0;
         for (int i = 0; i < files.length; i++) {
-          if(files[i].getName().toLowerCase().endsWith(".java"))
+          if(files[i].getName().toLowerCase().endsWith(".java")) {
+            numJavaLines += countLines(files[i]);
             numJavaFiles++;
+          }    
         }
         
         System.out.println("Number of Java files = " + numJavaFiles);
+        System.out.println("Number of lines Java code = " + numJavaLines);
         
       }
       else if (file.isFile()) {
@@ -92,19 +98,28 @@ public class FileManager implements FileFilter {
     }
   }
 
-  public int countLines() {
-    FileReader input = new FileReader(filename);
-    BufferedReader bufRead = new BufferedReader(input);  
-    String line;
-    int count;
-
-    line = bufRead.readLine();
-    count++;
-    while (line != null) {
+  public int countLines(File file)  {
+    FileReader input;
+    int count = 0;
+    String line = "";
+    
+    try {
+      input = new FileReader(file);
+      BufferedReader bufRead = new BufferedReader(input);  
       line = bufRead.readLine();
-      count++;
+      while (line != null) {
+        line = bufRead.readLine();
+        count++;
+      }
+      bufRead.close();
+    } catch (FileNotFoundException ex) {
+      Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+      return count;
+    } catch (IOException ex) {
+      Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+      return count;
     }
-    bufRead.close();
+    
     return count;
   }
   
